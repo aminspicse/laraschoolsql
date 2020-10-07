@@ -1,0 +1,38 @@
+CREATE TABLE mst_subjects (
+  subject_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  auth_code VARCHAR(6) NOT NULL,
+  class_id INT NOT NULL,
+  department_id INT NOT NULL,
+  /*
+  subject_code VARCHAR(7) NOT NULL,
+  subject_name VARCHAR(150) NOT NULL,
+  */
+  lib_sub_id int not null,
+  subject_type INT NOT NULL,
+  incourse float NOT NULL DEFAULT 0,
+  incourse_pass float NOT NULL DEFAULT 0,
+  mcq float NOT NULL DEFAULT 0,
+  mcq_pass float NOT NULL DEFAULT 0,
+  cq float NOT NULL DEFAULT 0,
+  cq_pass float NOT NULL DEFAULT 0,
+  pt float NOT NULL DEFAULT 0,
+  pt_pass float NOT NULL DEFAULT 0,
+  total float NOT NULL DEFAULT 0,
+  total_pass float NOT NULL DEFAULT 33,
+  mark_system VARCHAR(7) NOT NULL DEFAULT 'GPA',
+  descriptions VARCHAR(255) DEFAULT NULL,
+  updated_by INT DEFAULT NULL,
+  subject_status INT(1) NULL DEFAULT '1' COMMENT '1 is active 0 is inactive',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  updated_at TIMESTAMP NULL DEFAULT NULL,
+  
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(class_id) REFERENCES mst_classnames(class_id),
+  FOREIGN KEY(subject_type) REFERENCES mst_subjecttype(subject_type),
+  FOREIGN KEY(department_id) REFERENCES mst_departments(department_id),
+  FOREIGN KEY(updated_by) REFERENCES users(id),
+  foreign key(lib_sub_id) references lib_subjects(lib_sub_id),
+  foreign key(subject_status) references mst_status(status_id),
+  foreign key(mark_system) references mark_systems(mark_system)
+)

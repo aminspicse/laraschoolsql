@@ -1,0 +1,16 @@
+DELIMITER $$
+
+CREATE OR REPLACE FUNCTION GET_SEMESTER_NAME(SEMID VARCHAR(20))
+RETURNS VARCHAR(150)
+	BEGIN
+		DECLARE SEMNAME VARCHAR(150);
+		
+		SELECT b.semester_name FROM mst_semesters as a
+        left join lib_semester as b on a.lib_sem_id=b.lib_sem_id
+		WHERE a.SEMESTER_ID=SEMID
+		INTO SEMNAME;
+		
+		RETURN SEMNAME;
+	END$$
+
+DELIMITER ;
